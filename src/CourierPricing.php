@@ -28,7 +28,7 @@ class CourierPricing extends BiteshipObject
     {
         $data = \Illuminate\Support\Arr::whereNotNull($data);
 
-        $response     = Biteship::api()->post(self::$apiUri, $data);
+        $response = Biteship::api()->post(self::$apiUri, $data);
         $responseJson = $response->json();
 
         return collect($responseJson['pricing'])->map(function (array $attributes) {
