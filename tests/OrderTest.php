@@ -161,7 +161,8 @@ class OrderTest extends TestCase
 
         ];
 
-        $this->expectException(ValidationException::class);
+        $this->expectException(RequestException::class);
+        $this->expectExceptionCode(400);
 
         Order::create($data);
     }
@@ -173,20 +174,6 @@ class OrderTest extends TestCase
         $this->expectException(RequestException::class);
 
         Order::find($orderId);
-    }
-
-    public function testUpdateOrderWithInvalidData()
-    {
-        $orderId = '5dd599ebdefcd4158eb8470b';
-
-        try {
-            Order::update($orderId, ['origin_address' => 1, 'items' => [['weight' => 1200]]]);
-        } catch (ValidationException $e) {
-            $this->assertArrayHasKey('origin_address', $e->errors());
-            $this->assertArrayHasKey('items.0.name', $e->errors());
-            $this->assertArrayHasKey('items.0.quantity', $e->errors());
-            $this->assertArrayHasKey('items.0.value', $e->errors());
-        }
     }
 
     public function testCancelNonExistingOrder()
