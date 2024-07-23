@@ -4,7 +4,6 @@ namespace Cloudenum\Biteship\Tests;
 
 use Cloudenum\Biteship\Exceptions\RequestException;
 use Cloudenum\Biteship\Order;
-use Illuminate\Validation\ValidationException;
 
 class OrderTest extends TestCase
 {
