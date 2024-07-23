@@ -9,9 +9,9 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
 
     protected array $dynamicProperties = [];
 
-    private static array $traitInitializers = [];
+    protected static array $traitInitializers = [];
 
-    private static array $booted = [];
+    protected static array $booted = [];
 
     public function __construct(array $attributes = [])
     {
@@ -22,10 +22,10 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
     private function boot(): void
     {
         // boot class if not booted yet
-        if (! in_array(static::class, self::$booted)) {
+        if (!in_array(static::class, static::$booted)) {
             $this->bootTraits();
             $this->initializeTraits();
-            self::$booted[] = static::class;
+            static::$booted[] = static::class;
         }
     }
 
@@ -41,15 +41,15 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
         static::$traitInitializers[$class] = [];
 
         foreach (class_uses_recursive($class) as $trait) {
-            $method = 'boot'.class_basename($trait);
+            $method = 'boot' . class_basename($trait);
 
-            if (method_exists($class, $method) && ! in_array($method, $booted)) {
+            if (method_exists($class, $method) && !in_array($method, $booted)) {
                 forward_static_call([$class, $method]);
 
                 $booted[] = $method;
             }
 
-            if (method_exists($class, $method = 'initialize'.class_basename($trait))) {
+            if (method_exists($class, $method = 'initialize' . class_basename($trait))) {
                 static::$traitInitializers[$class][] = $method;
 
                 static::$traitInitializers[$class] = array_unique(
@@ -67,16 +67,6 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
         foreach (static::$traitInitializers[static::class] as $method) {
             $this->{$method}();
         }
-    }
-
-    public static function getApiUri(): string
-    {
-        return static::$apiUri;
-    }
-
-    public static function setApiUri(string $uri): void
-    {
-        static::$apiUri = $uri;
     }
 
     /**
@@ -123,7 +113,7 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
 
     public function offsetExists($key): bool
     {
-        return ! is_null($this->getAttribute($key));
+        return !is_null($this->getAttribute($key));
     }
 
     public function offsetGet($key): mixed
