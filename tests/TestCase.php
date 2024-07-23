@@ -2,9 +2,9 @@
 
 namespace Cloudenum\Biteship\Tests;
 
+use Cloudenum\Biteship\BiteshipServiceProvider;
 use Illuminate\Support\Facades\Http;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Cloudenum\Biteship\BiteshipServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -28,7 +28,7 @@ class TestCase extends Orchestra
     protected function mockApiResponse(array|string|null $body = null, int $status = 200)
     {
         Http::fake([
-            '*' => Http::response($body, $status)
+            '*' => Http::response($body, $status),
         ]);
     }
 }

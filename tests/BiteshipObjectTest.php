@@ -8,7 +8,8 @@ class BiteshipObjectTest extends TestCase
 {
     public function testGetAttribute()
     {
-        $object = new class extends BiteshipObject {
+        $object = new class extends BiteshipObject
+        {
             protected array $attributes = [];
         };
 
@@ -23,7 +24,8 @@ class BiteshipObjectTest extends TestCase
 
     public function testSetAttribute()
     {
-        $object = new class extends BiteshipObject {
+        $object = new class extends BiteshipObject
+        {
             protected array $attributes = [];
         };
 
@@ -36,8 +38,10 @@ class BiteshipObjectTest extends TestCase
 
     public function testFillDynamicProperties()
     {
-        $object = new class extends BiteshipObject {
+        $object = new class extends BiteshipObject
+        {
             protected array $attributes = [];
+
             protected array $dynamicProperties = ['name', 'age'];
         };
 
@@ -54,8 +58,10 @@ class BiteshipObjectTest extends TestCase
 
     public function testIsDynamicProperty()
     {
-        $object = new class extends BiteshipObject {
+        $object = new class extends BiteshipObject
+        {
             protected array $attributes = [];
+
             protected array $dynamicProperties = ['name', 'age'];
         };
 
@@ -66,13 +72,15 @@ class BiteshipObjectTest extends TestCase
 
     public function testAccessDynamicProperties()
     {
-        $object = new class extends BiteshipObject {
+        $object = new class extends BiteshipObject
+        {
             protected array $attributes = [];
+
             protected array $dynamicProperties = ['name', 'age'];
         };
 
         $object->name = 'John';
-        $object->age  = 30;
+        $object->age = 30;
 
         $this->assertEquals('John', $object->name);
         $this->assertEquals(30, $object->age);
@@ -86,10 +94,10 @@ class BiteshipObjectTest extends TestCase
         // use any random class that extend the BiteshipObject class
         $object = new \Cloudenum\Biteship\Courier();
 
-        $object->courier_name                    = 'Grab';
+        $object->courier_name = 'Grab';
         $object->available_for_proof_of_delivery = true;
 
-        $serialized   = serialize($object);
+        $serialized = serialize($object);
         $unserialized = unserialize($serialized);
 
         $this->assertEquals($object->courier_name, $unserialized->courier_name);
@@ -98,13 +106,15 @@ class BiteshipObjectTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $object = new class extends BiteshipObject {
+        $object = new class extends BiteshipObject
+        {
             protected array $attributes = [];
+
             protected array $dynamicProperties = ['name', 'age'];
         };
 
         $object->name = 'John';
-        $object->age  = 30;
+        $object->age = 30;
 
         $this->assertEquals('{"name":"John","age":30}', json_encode($object));
         $this->assertJson(json_encode($object));

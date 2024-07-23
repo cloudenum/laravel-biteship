@@ -26,29 +26,29 @@ class Order extends BiteshipObject
     protected static string $apiUri = '/v1/orders';
 
     protected array $dynamicProperties = [
-        "id",
-        "short_id",
-        "shipper",
-        "origin",
-        "destination",
-        "delivery",
-        "voucher",
-        "reference_id",
-        "invoice_id",
-        "items",
-        "extra",
-        "metadata",
-        "tags",
-        "note",
-        "price",
-        "status",
-        "ticket_status",
+        'id',
+        'short_id',
+        'shipper',
+        'origin',
+        'destination',
+        'delivery',
+        'voucher',
+        'reference_id',
+        'invoice_id',
+        'items',
+        'extra',
+        'metadata',
+        'tags',
+        'note',
+        'price',
+        'status',
+        'ticket_status',
     ];
 
     /**
      * Create a new Order
-     * @param array $data The details on what are the parameters is in the API documentation.
-     * @return static
+     *
+     * @param  array  $data  The details on what are the parameters is in the API documentation.
      *
      * @see https://biteship.com/id/docs/api/orders/create
      */
@@ -109,7 +109,7 @@ class Order extends BiteshipObject
 
         $data = \Illuminate\Support\Arr::whereNotNull($validator->validated());
 
-        $response     = Biteship::api()->post(self::$apiUri, $data);
+        $response = Biteship::api()->post(self::$apiUri, $data);
         $responseJson = $response->json();
 
         return new static($responseJson ?? []);
@@ -117,7 +117,7 @@ class Order extends BiteshipObject
 
     public static function find(string $id)
     {
-        $response     = Biteship::api()->get(self::$apiUri . '/' . $id);
+        $response = Biteship::api()->get(self::$apiUri.'/'.$id);
         $responseJson = $response->json();
 
         return new static($responseJson);
@@ -126,10 +126,8 @@ class Order extends BiteshipObject
     /**
      * Update any changes to the Order
      *
-     * @param Order|string $id The Order ID or the Order object
-     * @param array $data The details on what are the parameters is in the API documentation
-     *
-     * @return static
+     * @param  Order|string  $id  The Order ID or the Order object
+     * @param  array  $data  The details on what are the parameters is in the API documentation
      *
      * @see https://biteship.com/id/docs/api/orders/update
      */
@@ -195,7 +193,7 @@ class Order extends BiteshipObject
 
         $data = \Illuminate\Support\Arr::whereNotNull($validator->validated());
 
-        $response     = Biteship::api()->post(self::$apiUri . '/' . $order->id, $data);
+        $response = Biteship::api()->post(self::$apiUri.'/'.$order->id, $data);
         $responseJson = $response->json();
 
         if ($responseJson['success'] ?? false) {
@@ -208,19 +206,18 @@ class Order extends BiteshipObject
     /**
      * Cancel the Order
      *
-     * @param string $reason The reason why the order is canceled
-     * @return bool
+     * @param  string  $reason  The reason why the order is canceled
      *
      * @see https://biteship.com/id/docs/api/orders/delete
      */
     public function cancel(string $reason): bool
     {
         $data = [
-            'cancellation_reason' => $reason
+            'cancellation_reason' => $reason,
         ];
 
-        $success      = false;
-        $response     = Biteship::api()->delete(self::$apiUri . '/' . $this->id, $data);
+        $success = false;
+        $response = Biteship::api()->delete(self::$apiUri.'/'.$this->id, $data);
         $responseJson = $response->json();
 
         $success = $responseJson['success'] ?? false;

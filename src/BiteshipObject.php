@@ -5,12 +5,12 @@ namespace Cloudenum\Biteship;
 /** @phpstan-consistent-constructor */
 abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Stringable
 {
-
     protected array $attributes = [];
 
     protected array $dynamicProperties = [];
 
     private static array $traitInitializers = [];
+
     private static array $booted = [];
 
     public function __construct(array $attributes = [])
@@ -22,7 +22,7 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
     private function boot(): void
     {
         // boot class if not booted yet
-        if (!in_array(static::class, self::$booted)) {
+        if (! in_array(static::class, self::$booted)) {
             $this->bootTraits();
             $this->initializeTraits();
             self::$booted[] = static::class;
@@ -31,8 +31,6 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
 
     /**
      * Boot the traits.
-     *
-     * @return void
      */
     private function bootTraits(): void
     {
@@ -43,15 +41,15 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
         static::$traitInitializers[$class] = [];
 
         foreach (class_uses_recursive($class) as $trait) {
-            $method = 'boot' . class_basename($trait);
+            $method = 'boot'.class_basename($trait);
 
-            if (method_exists($class, $method) && !in_array($method, $booted)) {
+            if (method_exists($class, $method) && ! in_array($method, $booted)) {
                 forward_static_call([$class, $method]);
 
                 $booted[] = $method;
             }
 
-            if (method_exists($class, $method = 'initialize' . class_basename($trait))) {
+            if (method_exists($class, $method = 'initialize'.class_basename($trait))) {
                 static::$traitInitializers[$class][] = $method;
 
                 static::$traitInitializers[$class] = array_unique(
@@ -63,8 +61,6 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
 
     /**
      * Initialize the traits.
-     *
-     * @return void
      */
     protected function initializeTraits(): void
     {
@@ -85,10 +81,6 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
 
     /**
      * Get an attribute from the object.
-     *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
      */
     public function getAttribute(string $key, mixed $default = null): mixed
     {
@@ -97,10 +89,6 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
 
     /**
      * Set an attribute on the object.
-     *
-     * @param string $key
-     * @param mixed $value
-     * @return void
      */
     public function setAttribute(string $key, mixed $value): void
     {
@@ -109,9 +97,6 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
 
     /**
      * Fill the dynamic properties of the object.
-     *
-     * @param array $attributes
-     * @return static
      */
     public function fillDynamicProperties(array $attributes): static
     {
@@ -129,8 +114,7 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
     /**
      * Determine if the given key is a dynamic property.
      *
-     * @param mixed $key
-     * @return bool
+     * @param  mixed  $key
      */
     public function isDynamicProperty($key): bool
     {
@@ -139,7 +123,7 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
 
     public function offsetExists($key): bool
     {
-        return !is_null($this->getAttribute($key));
+        return ! is_null($this->getAttribute($key));
     }
 
     public function offsetGet($key): mixed
@@ -170,6 +154,7 @@ abstract class BiteshipObject implements \ArrayAccess, \JsonSerializable, \Strin
     {
         if ($this->isDynamicProperty($key)) {
             $this->setAttribute($key, $value);
+
             return;
         }
 

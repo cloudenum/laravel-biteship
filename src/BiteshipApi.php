@@ -11,6 +11,7 @@ class BiteshipApi
 {
     /**
      * The default base URL of the Biteship API
+     *
      * @var string
      */
     const DEFAULT_BASE_URL = 'https://api.biteship.com';
@@ -34,7 +35,7 @@ class BiteshipApi
     {
         $this->validateConfig($config);
 
-        $this->apiKey  = $config['api_key'] ?? null;
+        $this->apiKey = $config['api_key'] ?? null;
         $this->baseUrl = $config['base_url'] ?? static::DEFAULT_BASE_URL;
 
         $this->setRequiredHeaders();
@@ -42,8 +43,6 @@ class BiteshipApi
 
     /**
      * Validate the configuration
-     * @param array $config
-     * @return void
      *
      * @throws \Cloudenum\Biteship\Exceptions\InvalidArgumentException
      */
@@ -53,15 +52,15 @@ class BiteshipApi
             throw new \Cloudenum\Biteship\Exceptions\InvalidArgumentException('api_key must be provided');
         }
 
-        if (!is_string($config['api_key'])) {
+        if (! is_string($config['api_key'])) {
             throw new \Cloudenum\Biteship\Exceptions\InvalidArgumentException('api_key must be a string');
         }
 
-        if (isset($config['base_url']) && !is_string($config['base_url'])) {
+        if (isset($config['base_url']) && ! is_string($config['base_url'])) {
             throw new \Cloudenum\Biteship\Exceptions\InvalidArgumentException('base_url must be a string');
         }
 
-        if (isset($config['base_url']) && !filter_var($config['base_url'], FILTER_VALIDATE_URL)) {
+        if (isset($config['base_url']) && ! filter_var($config['base_url'], FILTER_VALIDATE_URL)) {
             throw new \Cloudenum\Biteship\Exceptions\InvalidArgumentException('base_url is not a valid URL');
         }
     }
@@ -84,20 +83,16 @@ class BiteshipApi
 
     public function baseUrl(string $uri): string
     {
-        if (!$this->baseUrl) {
+        if (! $this->baseUrl) {
             return $uri;
         }
 
-        return ltrim($this->baseUrl, '/') . '/' . trim($uri, '/');
+        return ltrim($this->baseUrl, '/').'/'.trim($uri, '/');
     }
 
     /**
      * Make a request to the Biteship API
      *
-     * @param string $method
-     * @param string $url
-     * @param array $data
-     * @param array $headers
      * @return \Illuminate\Http\Client\Response
      *
      * @throws \Cloudenum\Biteship\Exceptions\RequestException
@@ -118,9 +113,6 @@ class BiteshipApi
     /**
      * Make a GET request to the Biteship API
      *
-     * @param string $url
-     * @param array $data
-     * @param array $headers
      * @return \Illuminate\Http\Client\Response
      *
      * @throws \Cloudenum\Biteship\Exceptions\RequestException
@@ -133,9 +125,6 @@ class BiteshipApi
     /**
      * Make a POST request to the Biteship API
      *
-     * @param string $url
-     * @param array $data
-     * @param array $headers
      * @return \Illuminate\Http\Client\Response
      *
      * @throws \Cloudenum\Biteship\Exceptions\RequestException
@@ -148,9 +137,6 @@ class BiteshipApi
     /**
      * Make a PUT request to the Biteship API
      *
-     * @param string $url
-     * @param array $data
-     * @param array $headers
      * @return \Illuminate\Http\Client\Response
      *
      * @throws \Cloudenum\Biteship\Exceptions\RequestException
@@ -163,9 +149,6 @@ class BiteshipApi
     /**
      * Make a DELETE request to the Biteship API
      *
-     * @param string $url
-     * @param array $data
-     * @param array $headers
      * @return \Illuminate\Http\Client\Response
      *
      * @throws \Cloudenum\Biteship\Exceptions\RequestException

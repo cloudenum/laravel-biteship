@@ -40,8 +40,6 @@ class Area extends BiteshipObject
     /**
      * Search for areas by single search input
      *
-     * @param string $input
-     * @param string $countries
      * @return \Illuminate\Support\Collection<Area>
      *
      * @see https://biteship.com/id/docs/api/maps/retrieve_area_single
@@ -50,7 +48,7 @@ class Area extends BiteshipObject
     {
         $params = compact('input', 'countries');
 
-        $response     = Biteship::api()->get(self::$apiUri, $params);
+        $response = Biteship::api()->get(self::$apiUri, $params);
         $responseJson = $response->json();
 
         return collect($responseJson['areas'])->map(function (array $attributes) {

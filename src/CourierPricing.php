@@ -12,15 +12,14 @@ class CourierPricing extends BiteshipObject
     protected static string $apiUri = '/v1/rates/couriers';
 
     protected array $dynamicProperties = [
-        "origin",
-        "destination",
-        "pricing",
+        'origin',
+        'destination',
+        'pricing',
     ];
 
     /**
      * Get the delivery prices for couriers
      *
-     * @param array $data
      * @return \Illuminate\Support\Collection
      *
      * @see https://biteship.com/id/docs/api/rates/retrieve
@@ -48,7 +47,7 @@ class CourierPricing extends BiteshipObject
 
         $data = \Illuminate\Support\Arr::whereNotNull($validator->validated());
 
-        $response     = Biteship::api()->get(self::$apiUri, $data);
+        $response = Biteship::api()->get(self::$apiUri, $data);
         $responseJson = $response->json();
 
         return collect($responseJson['couriers'])->map(function (array $attributes) {

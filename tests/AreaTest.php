@@ -11,7 +11,7 @@ class AreaTest extends TestCase
     {
         parent::setUp();
         config([
-            'biteship' => ['api_key' => 'test']
+            'biteship' => ['api_key' => 'test'],
         ]);
     }
 
@@ -42,7 +42,7 @@ class AreaTest extends TestCase
                 'administrative_division_level_1_name' => 'Jakarta',
                 'administrative_division_level_1_type' => 'Province',
                 // Other fields omitted for brevity
-            ]
+            ],
         ];
         $this->mockApiResponse(['success' => true, 'areas' => $mockedAreas]);
 

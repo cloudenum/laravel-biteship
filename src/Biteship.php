@@ -7,8 +7,7 @@ class Biteship
     /**
      * Get the Biteship API instance
      *
-     * @param array $config The API configuration
-     * @return \Cloudenum\Biteship\BiteshipApi
+     * @param  array  $config  The API configuration
      *
      * @throws \Cloudenum\Biteship\Exceptions\InvalidArgumentException
      */

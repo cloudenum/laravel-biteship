@@ -192,7 +192,7 @@ class OrderTest extends TestCase
     public function testCancelNonExistingOrder()
     {
         $orderId = 'non-existing-order-id';
-        $reason  = 'Out of stock';
+        $reason = 'Out of stock';
 
         $this->expectException(RequestException::class);
 

@@ -33,7 +33,7 @@ class BiteshipApiTest extends TestCase
 
         $url = $api->baseUrl('/endpoint');
 
-        $this->assertEquals(\Cloudenum\Biteship\BiteshipApi::DEFAULT_BASE_URL . '/endpoint', $url);
+        $this->assertEquals(\Cloudenum\Biteship\BiteshipApi::DEFAULT_BASE_URL.'/endpoint', $url);
     }
 
     public function testBaseUrlWithBaseUrlConfig()
@@ -88,7 +88,7 @@ class BiteshipApiTest extends TestCase
     public function testInvalidConfigs()
     {
         $config = [
-            'api_key' => null
+            'api_key' => null,
         ];
 
         $this->expectException(\Cloudenum\Biteship\Exceptions\InvalidArgumentException::class);
@@ -96,7 +96,7 @@ class BiteshipApiTest extends TestCase
         new \Cloudenum\Biteship\BiteshipApi($config);
 
         $config = [
-            'api_key' => 123
+            'api_key' => 123,
         ];
 
         $this->expectException(\Cloudenum\Biteship\Exceptions\InvalidArgumentException::class);
@@ -105,7 +105,7 @@ class BiteshipApiTest extends TestCase
 
         $config = [
             'api_key' => 'test',
-            'base_url' => 123
+            'base_url' => 123,
         ];
 
         $this->expectException(\Cloudenum\Biteship\Exceptions\InvalidArgumentException::class);
@@ -114,7 +114,7 @@ class BiteshipApiTest extends TestCase
 
         $config = [
             'api_key' => 'test',
-            'base_url' => 'invalid-url'
+            'base_url' => 'invalid-url',
         ];
 
         $this->expectException(\Cloudenum\Biteship\Exceptions\InvalidArgumentException::class);

@@ -1,4 +1,5 @@
 <?php
+
 namespace Cloudenum\Biteship\Tests;
 
 use Cloudenum\Biteship\Courier;
@@ -17,7 +18,7 @@ class CourierTest extends TestCase
 
     public function testAllMethodReturnsCollectionWithCorrectData()
     {
-        $this->mockApiResponse(<<<JSON
+        $this->mockApiResponse(<<<'JSON'
             {
                 "success": true,
                 "object": "courier",
@@ -66,4 +67,3 @@ class CourierTest extends TestCase
         $this->assertEquals('grab', $courier->courier_code);
     }
 }
-
