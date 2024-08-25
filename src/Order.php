@@ -3,23 +3,28 @@
 namespace Cloudenum\Biteship;
 
 /**
- * @property string|null $id
- * @property string|null $short_id
- * @property array|null $shipper name, email, phone, organization
- * @property array|null $origin
- * @property array|null $destination
- * @property array|null $delivery datetime, note, type, distance, distance_unit
- * @property array|null $voucher id, name, value, type
- * @property string|null $reference_id
- * @property string|null $invoice_id
- * @property array|null $items
- * @property array|null $metadata
- * @property array|null $tags
- * @property string|null $note
- * @property float|null $price
- * @property string|null $status
- * @property string|null $ticket_status
- * @property string|null $cancellation_reason
+ * Order Model
+ *
+ * @property ?string $id
+ * @property ?string $short_id
+ * @property ?array $shipper name, email, phone, organization
+ * @property ?array $origin
+ * @property ?array $destination
+ * @property ?array $delivery datetime, note, type, distance, distance_unit
+ * @property ?array $courier tracking_id, waybill_id, company, driver_name, driver_phone, driver_photo_url, driver_plate_number, type, link, insurance, routing_code
+ * @property ?array $voucher id, name, value, type
+ * @property ?string $reference_id
+ * @property ?string $invoice_id
+ * @property ?array $items
+ * @property ?array $metadata
+ * @property ?array $tags
+ * @property ?string $note
+ * @property ?float $price
+ * @property ?string $status
+ * @property ?string $ticket_status
+ * @property ?string $cancellation_reason
+ *
+ * @see https://biteship.com/id/docs/api/orders/overview
  */
 class Order extends BiteshipObject
 {
@@ -32,6 +37,7 @@ class Order extends BiteshipObject
         'origin',
         'destination',
         'delivery',
+        'courier',
         'voucher',
         'reference_id',
         'invoice_id',
@@ -56,7 +62,7 @@ class Order extends BiteshipObject
     {
         $data = \Illuminate\Support\Arr::whereNotNull($data);
 
-        $response = Biteship::api()->post(self::$apiUri, $data);
+        $response     = Biteship::api()->post(self::$apiUri, $data);
         $responseJson = $response->json();
 
         return new static($responseJson ?? []);
@@ -64,7 +70,7 @@ class Order extends BiteshipObject
 
     public static function find(string $id)
     {
-        $response = Biteship::api()->get(self::$apiUri.'/'.$id);
+        $response     = Biteship::api()->get(self::$apiUri . '/' . $id);
         $responseJson = $response->json();
 
         return new static($responseJson);
@@ -87,7 +93,7 @@ class Order extends BiteshipObject
 
         $data = \Illuminate\Support\Arr::whereNotNull($data);
 
-        $response = Biteship::api()->post(self::$apiUri.'/'.$order->id, $data);
+        $response     = Biteship::api()->post(self::$apiUri . '/' . $order->id, $data);
         $responseJson = $response->json();
 
         if ($responseJson['success'] ?? false) {
@@ -110,8 +116,8 @@ class Order extends BiteshipObject
             'cancellation_reason' => $reason,
         ];
 
-        $success = false;
-        $response = Biteship::api()->delete(self::$apiUri.'/'.$this->id, $data);
+        $success      = false;
+        $response     = Biteship::api()->delete(self::$apiUri . '/' . $this->id, $data);
         $responseJson = $response->json();
 
         $success = $responseJson['success'] ?? false;
