@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class BiteshipApiTest extends TestCase
 {
-    public function testHeaders()
+    public function test_headers()
     {
         $config = [
             'api_key' => 'test',
@@ -23,7 +23,7 @@ class BiteshipApiTest extends TestCase
         $this->assertEquals('test', $headers['Authorization']);
     }
 
-    public function testBaseUrlWithoutBaseUrlConfig()
+    public function test_base_url_without_base_url_config()
     {
         $config = [
             'api_key' => 'test',
@@ -36,7 +36,7 @@ class BiteshipApiTest extends TestCase
         $this->assertEquals(\Cloudenum\Biteship\BiteshipApi::DEFAULT_BASE_URL.'/endpoint', $url);
     }
 
-    public function testBaseUrlWithBaseUrlConfig()
+    public function test_base_url_with_base_url_config()
     {
         $config = [
             'api_key' => 'test',
@@ -50,7 +50,7 @@ class BiteshipApiTest extends TestCase
         $this->assertEquals('https://api.example.com/endpoint', $url);
     }
 
-    public function testRequestSuccess()
+    public function test_request_success()
     {
         Http::fake([
             '*' => Http::response(['status' => true]),
@@ -68,7 +68,7 @@ class BiteshipApiTest extends TestCase
         $this->assertEquals('success', $response->json('status'));
     }
 
-    public function testRequestFailure()
+    public function test_request_failure()
     {
         Http::fake([
             '*' => Http::response(['status' => false], 500),
@@ -85,7 +85,7 @@ class BiteshipApiTest extends TestCase
         $api->request('get', '/endpoint');
     }
 
-    public function testInvalidConfigs()
+    public function test_invalid_configs()
     {
         $config = [
             'api_key' => null,

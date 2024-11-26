@@ -6,7 +6,7 @@ use Cloudenum\Biteship\BiteshipObject;
 
 class BiteshipObjectTest extends TestCase
 {
-    public function testGetAttribute()
+    public function test_get_attribute()
     {
         $object = new class extends BiteshipObject
         {
@@ -22,7 +22,7 @@ class BiteshipObjectTest extends TestCase
         $this->assertEquals('Default', $object->getAttribute('address', 'Default'));
     }
 
-    public function testSetAttribute()
+    public function test_set_attribute()
     {
         $object = new class extends BiteshipObject
         {
@@ -36,7 +36,7 @@ class BiteshipObjectTest extends TestCase
         $this->assertEquals(30, $object->getAttribute('age'));
     }
 
-    public function testFillDynamicProperties()
+    public function test_fill_dynamic_properties()
     {
         $object = new class extends BiteshipObject
         {
@@ -56,7 +56,7 @@ class BiteshipObjectTest extends TestCase
         $this->assertNull($object->getAttribute('address'));
     }
 
-    public function testIsDynamicProperty()
+    public function test_is_dynamic_property()
     {
         $object = new class extends BiteshipObject
         {
@@ -70,7 +70,7 @@ class BiteshipObjectTest extends TestCase
         $this->assertFalse($object->isDynamicProperty('address'));
     }
 
-    public function testAccessDynamicProperties()
+    public function test_access_dynamic_properties()
     {
         $object = new class extends BiteshipObject
         {
@@ -89,10 +89,10 @@ class BiteshipObjectTest extends TestCase
         $object->address;
     }
 
-    public function testObjectSerializeAndUnserialize()
+    public function test_object_serialize_and_unserialize()
     {
         // use any random class that extend the BiteshipObject class
-        $object = new \Cloudenum\Biteship\Courier();
+        $object = new \Cloudenum\Biteship\Courier;
 
         $object->courier_name = 'Grab';
         $object->available_for_proof_of_delivery = true;
@@ -104,7 +104,7 @@ class BiteshipObjectTest extends TestCase
         $this->assertEquals($object->available_for_proof_of_delivery, $unserialized->available_for_proof_of_delivery);
     }
 
-    public function testJsonSerialize()
+    public function test_json_serialize()
     {
         $object = new class extends BiteshipObject
         {

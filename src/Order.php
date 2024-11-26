@@ -62,7 +62,7 @@ class Order extends BiteshipObject
     {
         $data = \Illuminate\Support\Arr::whereNotNull($data);
 
-        $response     = Biteship::api()->post(self::$apiUri, $data);
+        $response = Biteship::api()->post(self::$apiUri, $data);
         $responseJson = $response->json();
 
         return new static($responseJson ?? []);
@@ -70,7 +70,7 @@ class Order extends BiteshipObject
 
     public static function find(string $id)
     {
-        $response     = Biteship::api()->get(self::$apiUri . '/' . $id);
+        $response = Biteship::api()->get(self::$apiUri.'/'.$id);
         $responseJson = $response->json();
 
         return new static($responseJson);
@@ -93,7 +93,7 @@ class Order extends BiteshipObject
 
         $data = \Illuminate\Support\Arr::whereNotNull($data);
 
-        $response     = Biteship::api()->post(self::$apiUri . '/' . $order->id, $data);
+        $response = Biteship::api()->post(self::$apiUri.'/'.$order->id, $data);
         $responseJson = $response->json();
 
         if ($responseJson['success'] ?? false) {
@@ -116,8 +116,8 @@ class Order extends BiteshipObject
             'cancellation_reason' => $reason,
         ];
 
-        $success      = false;
-        $response     = Biteship::api()->delete(self::$apiUri . '/' . $this->id, $data);
+        $success = false;
+        $response = Biteship::api()->delete(self::$apiUri.'/'.$this->id, $data);
         $responseJson = $response->json();
 
         $success = $responseJson['success'] ?? false;

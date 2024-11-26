@@ -15,7 +15,7 @@ class AreaTest extends TestCase
         ]);
     }
 
-    public function testSearchReturnsCollection()
+    public function test_search_returns_collection()
     {
         $this->mockApiResponse(['success' => true, 'areas' => []]);
 
@@ -23,7 +23,7 @@ class AreaTest extends TestCase
         $this->assertInstanceOf(Collection::class, $result);
     }
 
-    public function testSearchWithEmptyResult()
+    public function test_search_with_empty_result()
     {
         $this->mockApiResponse(['success' => true, 'areas' => []]);
 
@@ -31,7 +31,7 @@ class AreaTest extends TestCase
         $this->assertTrue($result->isEmpty());
     }
 
-    public function testSearchWithValidData()
+    public function test_search_with_valid_data()
     {
         $mockedAreas = [
             [
@@ -52,7 +52,7 @@ class AreaTest extends TestCase
         $this->assertEquals('Central Jakarta', $result->first()->name);
     }
 
-    public function testSearchExpectException()
+    public function test_search_expect_exception()
     {
         $this->mockApiResponse(['success' => false], 500);
 

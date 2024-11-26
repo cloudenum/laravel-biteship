@@ -20,7 +20,6 @@ class CourierPricing extends BiteshipObject
     /**
      * Get the delivery prices for couriers
      *
-     * @return \Cloudenum\Biteship\CourierPricing
      *
      * @see https://biteship.com/id/docs/api/rates/retrieve
      */
@@ -28,7 +27,7 @@ class CourierPricing extends BiteshipObject
     {
         $data = \Illuminate\Support\Arr::whereNotNull($data);
 
-        $response     = Biteship::api()->post(self::$apiUri, $data);
+        $response = Biteship::api()->post(self::$apiUri, $data);
         $responseJson = $response->json();
 
         return new static($responseJson);

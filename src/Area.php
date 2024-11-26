@@ -40,10 +40,9 @@ class Area extends BiteshipObject
     /**
      * Search for areas
      *
-     * @param string  $input  The search input
-     * @param string  $countries  The country code
-     * @param bool  $double  True for double search, single search otherwise
-     *
+     * @param  string  $input  The search input
+     * @param  string  $countries  The country code
+     * @param  bool  $double  True for double search, single search otherwise
      * @return \Illuminate\Support\Collection<Area>
      *
      * @see https://biteship.com/id/docs/api/maps/retrieve_area_single
@@ -56,7 +55,7 @@ class Area extends BiteshipObject
             'type' => $double ? 'double' : 'single',
         ];
 
-        $response     = Biteship::api()->get(self::$apiUri, $params);
+        $response = Biteship::api()->get(self::$apiUri, $params);
         $responseJson = $response->json();
 
         return collect($responseJson['areas'])->map(function (array $attributes) {
@@ -67,12 +66,12 @@ class Area extends BiteshipObject
     /**
      * Search for areas by double search input.
      *
-     * @param string $id The area id from previous search result
+     * @param  string  $id  The area id from previous search result
      * @return \Illuminate\Support\Collection<Area>
      */
     public static function doubleSearchSecondRequest(string $id): \Illuminate\Support\Collection
     {
-        $response     = Biteship::api()->get(self::$apiUri . '/' . $id);
+        $response = Biteship::api()->get(self::$apiUri.'/'.$id);
         $responseJson = $response->json();
 
         return collect($responseJson['areas'])->map(function (array $attributes) {

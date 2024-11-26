@@ -16,7 +16,7 @@ class CourierTest extends TestCase
         ]);
     }
 
-    public function testAllMethodReturnsCollectionWithCorrectData()
+    public function test_all_method_returns_collection_with_correct_data()
     {
         $this->mockApiResponse(<<<'JSON'
             {

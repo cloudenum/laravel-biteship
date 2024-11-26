@@ -15,7 +15,7 @@ class OrderTest extends TestCase
         ]);
     }
 
-    public function testCreateOrder()
+    public function test_create_order()
     {
         $data = [
             'shipper_contact_name' => 'Biteship Indonesia',
@@ -162,7 +162,7 @@ class OrderTest extends TestCase
         $this->assertCount(1, $order->items);
     }
 
-    public function testCreateOrderWithInvalidData()
+    public function test_create_order_with_invalid_data()
     {
         $data = [
 
@@ -176,7 +176,7 @@ class OrderTest extends TestCase
         Order::create($data);
     }
 
-    public function testFindNonExistingOrder()
+    public function test_find_non_existing_order()
     {
         $orderId = 'non-existing-order-id';
 
@@ -188,10 +188,10 @@ class OrderTest extends TestCase
         Order::find($orderId);
     }
 
-    public function testCancelNonExistingOrder()
+    public function test_cancel_non_existing_order()
     {
         $orderId = 'non-existing-order-id';
-        $reason  = 'Out of stock';
+        $reason = 'Out of stock';
 
         $this->mockApiResponse(null, 404);
 
