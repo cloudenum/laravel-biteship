@@ -1,4 +1,4 @@
-# Unonfficial Laravel package for Biteship API
+# Unofficial Laravel package for Biteship API
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/cloudenum/laravel-biteship.svg?style=flat-square)](https://packagist.org/packages/cloudenum/laravel-biteship)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/cloudenum/laravel-biteship/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/cloudenum/laravel-biteship/actions?query=workflow%3Arun-tests+branch%3Amain)
