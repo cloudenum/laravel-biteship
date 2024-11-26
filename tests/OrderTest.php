@@ -7,6 +7,14 @@ use Cloudenum\Biteship\Order;
 
 class OrderTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        config([
+            'biteship' => ['api_key' => 'test'],
+        ]);
+    }
+
     public function testCreateOrder()
     {
         $data = [
@@ -160,6 +168,8 @@ class OrderTest extends TestCase
 
         ];
 
+        $this->mockApiResponse($data, 400);
+
         $this->expectException(RequestException::class);
         $this->expectExceptionCode(400);
 
@@ -170,7 +180,10 @@ class OrderTest extends TestCase
     {
         $orderId = 'non-existing-order-id';
 
+        $this->mockApiResponse(null, 404);
+
         $this->expectException(RequestException::class);
+        $this->expectExceptionCode(404);
 
         Order::find($orderId);
     }
@@ -178,9 +191,12 @@ class OrderTest extends TestCase
     public function testCancelNonExistingOrder()
     {
         $orderId = 'non-existing-order-id';
-        $reason = 'Out of stock';
+        $reason  = 'Out of stock';
+
+        $this->mockApiResponse(null, 404);
 
         $this->expectException(RequestException::class);
+        $this->expectExceptionCode(404);
 
         Order::find($orderId)->cancel($reason);
     }
