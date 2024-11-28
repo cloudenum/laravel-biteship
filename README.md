@@ -50,7 +50,7 @@ composer require cloudenum/laravel-biteship
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-biteship-config"
+php artisan vendor:publish --tag="biteship-config"
 ```
 
 This is the contents of the published config file:
