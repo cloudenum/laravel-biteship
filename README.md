@@ -231,7 +231,7 @@ $tracking = \Cloudenum\Biteship\Tracking::find("TrackingId");
 Example:
 
 ```php
-$tracking = \Cloudenum\Biteship\Tracking::findPublicTracking("WaybillId");
+$tracking = \Cloudenum\Biteship\Tracking::findPublicTracking("WaybillId", "jne");
 ```
 
 ## Changelog
